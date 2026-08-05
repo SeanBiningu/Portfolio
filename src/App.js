@@ -29,7 +29,7 @@ const projects = [
     description: "A job-search platform that helps candidates discover relevant openings, filter roles by what matters to them, and save opportunities to revisit later.",
     image: jobfinder,
     stack: ["React", "JavaScript", "CSS"],
-    demoUrl: "https://job-finder-alpha-swart.vercel.app",
+    demoUrl: "https://job-finder-asnz.vercel.app",
   },
 ];
 
