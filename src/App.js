@@ -1,7 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { FaArrowDown, FaExternalLinkAlt, FaEnvelope, FaGithub, FaLinkedin, FaPhone, FaWhatsapp, FaLightbulb, FaCode, FaRocket } from "react-icons/fa";
+import { FaArrowDown, FaExternalLinkAlt, FaEnvelope, FaGithub, FaLinkedin, FaPhone, FaWhatsapp, FaLightbulb, FaCode, FaRocket, FaPlay, FaTimes, FaSearch, FaPlus, FaCalendarAlt } from "react-icons/fa";
 import eventPlanner from "./eventplanner.png";
 import studentManagement from "./studentmanagement.png";
+import jobfinder from "./jobfinder.png";
+import { isSupabaseConfigured } from "./lib/supabase";
+import { Import } from "lucide-react";
+
 
 const projects = [
   {
@@ -10,6 +14,7 @@ const projects = [
     description: "A clear, practical dashboard for organizing student records and academic information.",
     image: studentManagement,
     stack: ["React", "JavaScript", "Tailwind CSS"],
+    demo: "students",
   },
   {
     number: "02",
@@ -17,11 +22,19 @@ const projects = [
     description: "A responsive planning tool that keeps events, details, and schedules in one place.",
     image: eventPlanner,
     stack: ["React", "CSS", "JavaScript"],
+    demoUrl: "https://event-planner-react-app-jdmw.vercel.app",
+  },
+  {
+    number: "03",
+    title: "Job Finder",
+    description: "A job-search platform that helps candidates discover relevant openings, filter roles by what matters to them, and save opportunities to revisit later.",
+    image: jobfinder,
+    stack: ["React", "JavaScript", "CSS"],
+    demoUrl: "https://job-finder-alpha-swart.vercel.app",
   },
 ];
 
 const placeholders = [
-  { number: "03" },
   { number: "04" },
   { number: "05" },
 ];
@@ -38,6 +51,17 @@ function App() {
 
   const [startConvOpen, setStartConvOpen] = useState(false);
   const [getInTouchOpen, setGetInTouchOpen] = useState(false);
+  const [activeDemo, setActiveDemo] = useState(null);
+  const [studentQuery, setStudentQuery] = useState("");
+  const [attendance, setAttendance] = useState({ Amara: "Present", Tawanda: "Present", Nyasha: "Absent" });
+  const [events, setEvents] = useState([
+    { title: "Design review", date: "Today, 14:00", type: "Meeting" },
+    { title: "Portfolio launch", date: "Friday, 10:30", type: "Launch" },
+  ]);
+  const [eventTitle, setEventTitle] = useState("");
+  const [jobSearch, setJobSearch] = useState("");
+  const [jobType, setJobType] = useState("All roles");
+  const [savedJobs, setSavedJobs] = useState([]);
   const startConvRef = useRef(null);
   const getInTouchRef = useRef(null);
 
@@ -54,6 +78,35 @@ function App() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    function handleEscape(event) {
+      if (event.key === "Escape") setActiveDemo(null);
+    }
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
+
+  const students = [
+    { name: "Amara Ncube", course: "Software Engineering", grade: "A" },
+    { name: "Tawanda Moyo", course: "Data Structures", grade: "B+" },
+    { name: "Nyasha Dube", course: "Web Development", grade: "A-" },
+  ];
+  const filteredStudents = students.filter((student) => student.name.toLowerCase().includes(studentQuery.toLowerCase()));
+  const jobs = [
+    { id: 1, title: "Frontend Developer", company: "Nova Labs", location: "Remote", type: "Full-time" },
+    { id: 2, title: "React Developer", company: "Bright Studio", location: "Harare", type: "Contract" },
+    { id: 3, title: "Junior Software Engineer", company: "Buildable", location: "Remote", type: "Full-time" },
+  ];
+  const visibleJobs = jobs.filter((job) => (job.title + job.company).toLowerCase().includes(jobSearch.toLowerCase()) && (jobType === "All roles" || job.type === jobType));
+
+  function addEvent(event) {
+    event.preventDefault();
+    const title = eventTitle.trim();
+    if (!title) return;
+    setEvents((currentEvents) => [...currentEvents, { title, date: "Just added", type: "New" }]);
+    setEventTitle("");
+  }
 
   return (
     <div className="site-shell">
@@ -250,7 +303,14 @@ function App() {
           <div className="project-list">
             {projects.map((project) => (
               <article className="project-card" key={project.title}>
-                <div className="project-image"><img src={project.image} alt={project.title} /></div>
+                {project.demoUrl ? (
+                  <a className="project-image project-image-link" href={project.demoUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.title} live demo`}>
+                    <img src={project.image} alt={project.title} />
+                    <span className="project-image-overlay">Open live demo <FaExternalLinkAlt /></span>
+                  </a>
+                ) : (
+                  <div className="project-image"><img src={project.image} alt={project.title} /></div>
+                )}
                 <div className="project-body">
                   <div className="project-meta">
                     <span>{project.number}</span>
@@ -260,7 +320,14 @@ function App() {
                   </div>
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
-                  <a href="https://github.com/SeanBiningu" target="_blank" rel="noreferrer" className="project-link text-link">View project <FaExternalLinkAlt /></a>
+                  <div className="project-actions">
+                    {project.demoUrl ? (
+                      <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="project-link text-link">Live demo <FaPlay /></a>
+                    ) : project.demo ? (
+                      <button type="button" className="project-link text-link project-demo-button" onClick={() => setActiveDemo(project.demo)}>Live demo <FaPlay /></button>
+                    ) : null}
+                    <a href="https://github.com/SeanBiningu" target="_blank" rel="noreferrer" className="project-link text-link">Source <FaExternalLinkAlt /></a>
+                  </div>
                 </div>
               </article>
             ))}
@@ -281,6 +348,40 @@ function App() {
             ))}
           </div>
         </section>
+
+        {activeDemo && (
+          <div className="demo-overlay" role="presentation" onMouseDown={() => setActiveDemo(null)}>
+            <section className="demo-modal" role="dialog" aria-modal="true" aria-labelledby="demo-title" onMouseDown={(event) => event.stopPropagation()}>
+              <header className="demo-modal-header">
+                <div><p className="eyebrow">Interactive preview</p><h2 id="demo-title">{activeDemo === "students" ? "Student Management Dashboard" : activeDemo === "jobs" ? "Job Finder" : "Event Planner"}</h2></div>
+                <button type="button" className="demo-close" onClick={() => setActiveDemo(null)} aria-label="Close live demo"><FaTimes /></button>
+              </header>
+
+              {activeDemo === "students" ? (
+                <div className="demo-app student-demo">
+                  <aside className="demo-sidebar"><strong>Campus</strong><span className="demo-nav-active">Overview</span><span>Students</span><span>Attendance</span></aside>
+                  <div className="demo-main">
+                    <div className="demo-toolbar"><div><p>Good afternoon</p><h3>Student overview</h3></div><label className="demo-search"><FaSearch /><input value={studentQuery} onChange={(event) => setStudentQuery(event.target.value)} placeholder="Search students" aria-label="Search students" /></label></div>
+                    <div className="metric-grid"><div><span>Enrolled</span><strong>248</strong></div><div><span>Attendance</span><strong>94%</strong></div><div><span>Average grade</span><strong>B+</strong></div></div>
+                    <div className="demo-panel"><div className="demo-panel-heading"><h4>Today&apos;s attendance</h4><span>{filteredStudents.length} students</span></div>{filteredStudents.map((student) => (<div className="student-row" key={student.name}><div><strong>{student.name}</strong><span>{student.course} · Grade {student.grade}</span></div><button type="button" className={attendance[student.name.split(" ")[0]] === "Present" ? "attendance-status present" : "attendance-status"} onClick={() => { const key = student.name.split(" ")[0]; setAttendance((current) => ({ ...current, [key]: current[key] === "Present" ? "Absent" : "Present" })); }}>{attendance[student.name.split(" ")[0]]}</button></div>))}</div>
+                  </div>
+                </div>
+              ) : activeDemo === "jobs" ? (
+                <div className="demo-app job-demo">
+                  <div className="job-demo-topbar"><div><p>Job Finder</p><h3>Find work you&apos;ll love</h3></div><span>{savedJobs.length} saved</span></div>
+                  <div className="job-demo-filters"><label><FaSearch /><input value={jobSearch} onChange={(event) => setJobSearch(event.target.value)} placeholder="Search jobs or companies" aria-label="Search jobs" /></label><select value={jobType} onChange={(event) => setJobType(event.target.value)} aria-label="Filter by job type"><option>All roles</option><option>Full-time</option><option>Contract</option></select></div>
+                  <div className="job-demo-results"><div className="job-demo-results-header"><h4>Open roles</h4><small>{visibleJobs.length} matches {isSupabaseConfigured ? "· synced with Supabase" : "· demo data"}</small></div>{visibleJobs.map((job) => <article className="job-demo-card" key={job.id}><div><strong>{job.title}</strong><span>{job.company} · {job.location}</span><small>{job.type}</small></div><button type="button" onClick={() => setSavedJobs((current) => current.includes(job.id) ? current.filter((id) => id !== job.id) : [...current, job.id])}>{savedJobs.includes(job.id) ? "Saved" : "Save job"}</button></article>)}{visibleJobs.length === 0 && <p className="job-demo-empty">No roles match that search yet.</p>}</div>
+                </div>
+              ) : (
+                <div className="demo-app event-demo">
+                  <div className="event-topbar"><div><p>August 2026</p><h3>Your events</h3></div><span><FaCalendarAlt /> 2 upcoming</span></div>
+                  <div className="event-content"><div className="event-calendar"><div className="calendar-week">{["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => <span key={day}>{day}</span>)}</div><div className="calendar-days">{Array.from({ length: 21 }, (_, index) => <button type="button" key={index} className={index === 11 ? "selected-day" : ""}>{index + 3}{index === 11 && <i />}</button>)}</div></div><div className="event-list"><h4>Upcoming</h4>{events.map((item, index) => <div className="event-row" key={`${item.title}-${index}`}><span className="event-marker" /><div><strong>{item.title}</strong><small>{item.date} · {item.type}</small></div></div>)}<form className="add-event" onSubmit={addEvent}><input value={eventTitle} onChange={(event) => setEventTitle(event.target.value)} placeholder="Add an event" aria-label="New event title" /><button type="submit" aria-label="Add event"><FaPlus /></button></form></div></div>
+                </div>
+              )}
+              <p className="demo-note">This interactive preview is built into the portfolio. Try searching, updating attendance, selecting a date, or adding an event.</p>
+            </section>
+          </div>
+        )}
 
         <section className="skills" id="skills">
           <div className="skills-header">
