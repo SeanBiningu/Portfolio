@@ -4,7 +4,6 @@ import eventPlanner from "./eventplanner.png";
 import studentManagement from "./studentmanagement.png";
 import jobfinder from "./jobfinder.png";
 import { isSupabaseConfigured } from "./lib/supabase";
-import { Import } from "lucide-react";
 
 
 const projects = [
