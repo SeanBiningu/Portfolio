@@ -65,7 +65,7 @@ function Footer() {
 
 
             <a
-              href="#"
+              href="https://www.linkedin.com/in/sean-biningu-960b233aa"
               target="_blank"
               className="
                 w-12

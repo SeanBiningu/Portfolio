@@ -399,7 +399,7 @@ function App() {
           <p className="eyebrow">05 / Contact</p>
           <h2>Have something in mind?<br /><em>Let’s make it happen.</em></h2>
           <a className="email-link" href="mailto:seanbiningu6@email.com">seanbiningu6@email.com <FaExternalLinkAlt /></a>
-          <div className="social-links"><a href="https://github.com/SeanBiningu" target="_blank" rel="noreferrer"><FaGithub /> GitHub</a><a href="https://linkedin.com" target="_blank" rel="noreferrer"><FaLinkedin /> LinkedIn</a><a href="mailto:seanbiningu6@email.com"><FaEnvelope /> Email</a></div>
+          <div className="social-links"><a href="https://github.com/SeanBiningu" target="_blank" rel="noreferrer"><FaGithub /> GitHub</a><a href="https://www.linkedin.com/in/sean-biningu-960b233aa" target="_blank" rel="noreferrer"><FaLinkedin /> LinkedIn</a><a href="mailto:seanbiningu6@email.com"><FaEnvelope /> Email</a></div>
         </section>
       </main>
       <footer><span>© {new Date().getFullYear()} Sean Biningu</span><span>Designed & built with intention</span></footer>

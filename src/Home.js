@@ -272,7 +272,7 @@ function Home() {
 
 
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/sean-biningu-960b233aa"
               target="_blank"
               rel="noopener noreferrer"
               className="

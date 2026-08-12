@@ -21,9 +21,9 @@ function Contact() {
 
 
     {
-      icon: <FaEnvelope />,
+      icon: <a href="mailto:seanbiningu6@gmail.com" aria-label="Email Sean Biningu"><FaEnvelope /></a>,
       title: "Email",
-      detail: "seanbiningu6@email.com"
+      detail: "seanbiningu6@gmail.com"
     },
 
 
@@ -268,7 +268,7 @@ function Contact() {
 
 
             <a
-              href="https://linkedin.com/"
+              href="https://www.linkedin.com/in/sean-biningu-960b233aa"
               target="_blank"
               className="
                 w-14
