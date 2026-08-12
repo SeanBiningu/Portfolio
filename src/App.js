@@ -13,7 +13,7 @@ const projects = [
     description: "A clear, practical dashboard for organizing student records and academic information.",
     image: studentManagement,
     stack: ["React", "JavaScript", "Tailwind CSS"],
-    demo: "students",
+    demoUrl: "https://student-mangement-dash-board-react-rust.vercel.app/",
   },
   {
     number: "02",
