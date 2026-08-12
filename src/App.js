@@ -44,6 +44,9 @@ const skillGroups = [
   ["Workflow", "Git & GitHub", "Figma", "VS Code", "UX thinking"],
 ];
 
+const emailAddress = "seanbiningu6@gmail.com";
+const emailHref = `mailto:${emailAddress}?subject=${encodeURIComponent("Portfolio enquiry")}`;
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
@@ -166,7 +169,7 @@ function App() {
                   {getInTouchOpen && (
                     <div className="contact-dropdown" role="menu" aria-label="Get in touch options">
                       <a
-                        href="mailto:seanbiningu6@gmail.com"
+                        href={emailHref}
                         className="contact-dropdown-item"
                         role="menuitem"
                         onClick={() => setGetInTouchOpen(false)}
@@ -174,7 +177,7 @@ function App() {
                         <FaEnvelope className="contact-dropdown-icon" />
                         <span>
                           <strong>Email</strong>
-                          <small>seanbiningu6@gmail.com</small>
+                          <small>{emailAddress}</small>
                         </span>
                       </a>
                       <a
@@ -398,8 +401,8 @@ function App() {
         <section className="contact section-wrap" id="contact">
           <p className="eyebrow">05 / Contact</p>
           <h2>Have something in mind?<br /><em>Let’s make it happen.</em></h2>
-          <a className="email-link" href="mailto:seanbiningu6@email.com">seanbiningu6@email.com <FaExternalLinkAlt /></a>
-          <div className="social-links"><a href="https://github.com/SeanBiningu" target="_blank" rel="noreferrer"><FaGithub /> GitHub</a><a href="https://www.linkedin.com/in/sean-biningu-960b233aa" target="_blank" rel="noreferrer"><FaLinkedin /> LinkedIn</a><a href="mailto:seanbiningu6@email.com"><FaEnvelope /> Email</a></div>
+          <a className="email-link" href={emailHref} aria-label={`Send an email to ${emailAddress}`}>{emailAddress} <FaExternalLinkAlt aria-hidden="true" /></a>
+          <div className="social-links"><a href="https://github.com/SeanBiningu" target="_blank" rel="noreferrer"><FaGithub /> GitHub</a><a href="https://www.linkedin.com/in/sean-biningu-960b233aa" target="_blank" rel="noreferrer"><FaLinkedin /> LinkedIn</a><a href={emailHref} aria-label={`Send an email to ${emailAddress}`}><FaEnvelope aria-hidden="true" /> Email</a></div>
         </section>
       </main>
       <footer><span>© {new Date().getFullYear()} Sean Biningu</span><span>Designed & built with intention</span></footer>
