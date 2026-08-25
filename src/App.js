@@ -4,6 +4,7 @@ import eventPlanner from "./eventplanner.png";
 import studentManagement from "./studentmanagement.png";
 import jobfinder from "./jobfinder.png";
 import joinaCity from "./joina-city.png";
+import exclusiveFashionWear from "./exclusive-fashion-wear.png";
 import { isSupabaseConfigured } from "./lib/supabase";
 
 
@@ -18,6 +19,18 @@ const projects = [
   },
   {
     number: "02",
+    title: "Exclusive Fashion Wear",
+    description: "A polished e-commerce storefront for discovering and shopping curated fashion collections.",
+    image: exclusiveFashionWear,
+    stack: ["React", "JavaScript", "CSS"],
+    demoUrl: "https://e-comerce-peach.vercel.app/",
+    demoCredentials: {
+      email: "fashiontest@test.co.zw",
+      password: "test123",
+    },
+  },
+  {
+    number: "03",
     title: "Student Management Dashboard",
     description: "A clear, practical dashboard for organizing student records and academic information.",
     image: studentManagement,
@@ -25,7 +38,7 @@ const projects = [
     demoUrl: "https://student-mangement-dash-board-react-rust.vercel.app/",
   },
   {
-    number: "03",
+    number: "04",
     title: "Event Planner",
     description: "A responsive planning tool that keeps events, details, and schedules in one place.",
     image: eventPlanner,
@@ -33,7 +46,7 @@ const projects = [
     demoUrl: "https://event-planner-react-app-jdmw.vercel.app",
   },
   {
-    number: "04",
+    number: "05",
     title: "Job Finder",
     description: "A job-search platform that helps candidates discover relevant openings, filter roles by what matters to them, and save opportunities to revisit later.",
     image: jobfinder,
@@ -43,8 +56,8 @@ const projects = [
 ];
 
 const placeholders = [
-  { number: "05" },
   { number: "06" },
+  { number: "07" },
 ];
 
 const skillGroups = [
@@ -63,6 +76,7 @@ function App() {
   const [startConvOpen, setStartConvOpen] = useState(false);
   const [getInTouchOpen, setGetInTouchOpen] = useState(false);
   const [activeDemo, setActiveDemo] = useState(null);
+  const [demoAccess, setDemoAccess] = useState(null);
   const [studentQuery, setStudentQuery] = useState("");
   const [attendance, setAttendance] = useState({ Amara: "Present", Tawanda: "Present", Nyasha: "Absent" });
   const [events, setEvents] = useState([
@@ -92,7 +106,10 @@ function App() {
 
   useEffect(() => {
     function handleEscape(event) {
-      if (event.key === "Escape") setActiveDemo(null);
+      if (event.key === "Escape") {
+        setActiveDemo(null);
+        setDemoAccess(null);
+      }
     }
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
@@ -314,7 +331,12 @@ function App() {
           <div className="project-list">
             {projects.map((project) => (
               <article className="project-card" key={project.title}>
-                {project.demoUrl ? (
+                {project.demoCredentials ? (
+                  <button className="project-image project-image-link project-image-button" type="button" onClick={() => setDemoAccess(project)} aria-label={`View ${project.title} demo account`}>
+                    <img src={project.image} alt={project.title} />
+                    <span className="project-image-overlay">View demo account <FaExternalLinkAlt /></span>
+                  </button>
+                ) : project.demoUrl ? (
                   <a className="project-image project-image-link" href={project.demoUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.title} live demo`}>
                     <img src={project.image} alt={project.title} />
                     <span className="project-image-overlay">Open live demo <FaExternalLinkAlt /></span>
@@ -332,7 +354,9 @@ function App() {
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
                   <div className="project-actions">
-                    {project.demoUrl ? (
+                    {project.demoCredentials ? (
+                      <button type="button" className="project-link text-link project-demo-button" onClick={() => setDemoAccess(project)}>Live demo <FaPlay /></button>
+                    ) : project.demoUrl ? (
                       <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="project-link text-link">Live demo <FaPlay /></a>
                     ) : project.demo ? (
                       <button type="button" className="project-link text-link project-demo-button" onClick={() => setActiveDemo(project.demo)}>Live demo <FaPlay /></button>
@@ -359,6 +383,25 @@ function App() {
             ))}
           </div>
         </section>
+
+        {demoAccess && (
+          <div className="demo-overlay" role="presentation" onMouseDown={() => setDemoAccess(null)}>
+            <section className="demo-modal demo-access-modal" role="dialog" aria-modal="true" aria-labelledby="demo-access-title" onMouseDown={(event) => event.stopPropagation()}>
+              <header className="demo-modal-header">
+                <div><p className="eyebrow">Demo access</p><h2 id="demo-access-title">{demoAccess.title}</h2></div>
+                <button type="button" className="demo-close" onClick={() => setDemoAccess(null)} aria-label="Close demo account"><FaTimes /></button>
+              </header>
+              <div className="demo-access-content">
+                <p>Use this demo account to explore the live project.</p>
+                <dl className="demo-credentials">
+                  <div><dt>Email</dt><dd>{demoAccess.demoCredentials.email}</dd></div>
+                  <div><dt>Password</dt><dd>{demoAccess.demoCredentials.password}</dd></div>
+                </dl>
+                <a href={demoAccess.demoUrl} target="_blank" rel="noopener noreferrer" className="button button-light">Open live demo <FaExternalLinkAlt /></a>
+              </div>
+            </section>
+          </div>
+        )}
 
         {activeDemo && (
           <div className="demo-overlay" role="presentation" onMouseDown={() => setActiveDemo(null)}>
