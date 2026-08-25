@@ -1,11 +1,33 @@
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import eventplanner from "./eventplanner.png"
 import studentmanagement from "./studentmanagement.png"
+import joinaCity from "./joina-city.png"
 
 function Projects() {
 
 
   const projects = [
+
+    {
+      title: "Joina City Mall Portal",
+
+      description:
+        "A multi-tenant mall portal for shop owners to manage their store profile, floor location, promotions, analytics and team access.",
+
+      image:
+        joinaCity,
+
+      technologies:[
+        "React",
+        "Tailwind CSS",
+        "JavaScript"
+      ],
+
+      github:"#",
+
+      demo:"https://joina-project.vercel.app/"
+
+    },
 
     {
       title: "Student Management Dashboard",

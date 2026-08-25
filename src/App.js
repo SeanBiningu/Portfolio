@@ -3,12 +3,21 @@ import { FaArrowDown, FaExternalLinkAlt, FaEnvelope, FaGithub, FaLinkedin, FaPho
 import eventPlanner from "./eventplanner.png";
 import studentManagement from "./studentmanagement.png";
 import jobfinder from "./jobfinder.png";
+import joinaCity from "./joina-city.png";
 import { isSupabaseConfigured } from "./lib/supabase";
 
 
 const projects = [
   {
     number: "01",
+    title: "Joina City Mall Portal",
+    description: "A multi-tenant mall portal for shop owners to manage their store profile, floor location, promotions, analytics and team access.",
+    image: joinaCity,
+    stack: ["React", "Tailwind CSS", "JavaScript"],
+    demoUrl: "https://joina-project.vercel.app/",
+  },
+  {
+    number: "02",
     title: "Student Management Dashboard",
     description: "A clear, practical dashboard for organizing student records and academic information.",
     image: studentManagement,
@@ -16,7 +25,7 @@ const projects = [
     demoUrl: "https://student-mangement-dash-board-react-rust.vercel.app/",
   },
   {
-    number: "02",
+    number: "03",
     title: "Event Planner",
     description: "A responsive planning tool that keeps events, details, and schedules in one place.",
     image: eventPlanner,
@@ -24,7 +33,7 @@ const projects = [
     demoUrl: "https://event-planner-react-app-jdmw.vercel.app",
   },
   {
-    number: "03",
+    number: "04",
     title: "Job Finder",
     description: "A job-search platform that helps candidates discover relevant openings, filter roles by what matters to them, and save opportunities to revisit later.",
     image: jobfinder,
@@ -34,8 +43,8 @@ const projects = [
 ];
 
 const placeholders = [
-  { number: "04" },
   { number: "05" },
+  { number: "06" },
 ];
 
 const skillGroups = [
