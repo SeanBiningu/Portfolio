@@ -12,7 +12,7 @@ a { color: inherit; text-decoration: none; }
 .site-shell { overflow: hidden; }
 main { padding-top: var(--header-height); }
 .section-wrap { width: min(var(--page-max), calc(100% - var(--page-gutter))); margin: 0 auto; }
-.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; width: 100%; height: var(--header-height); margin: 0 auto; padding: 0 max(32px, calc((100% - var(--page-max)) / 2)); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.06); background: rgba(13, 13, 13, 0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); color: #e7e5dc; }
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; width: 100%; height: var(--header-height); margin: 0 auto; padding: 0 max(32px, calc((100% - var(--page-max)) / 2)); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(245, 196, 0, 0.5); background: rgba(13, 13, 13, 0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); color: #e7e5dc; }
 .wordmark { font-family: "Playfair Display", Georgia, serif; font-size: 28px; font-weight: 600; letter-spacing: -1px; }.wordmark span { color: #f5c400; }
 .main-nav { display: flex; align-items: center; gap: 34px; font-size: 14px; font-weight: 500; }.main-nav a { color: #aaa; transition: color .2s ease; }.main-nav a:hover { color: #f5c400; }
 .menu-toggle { display: none; color: inherit; border: 0; background: none; font: inherit; font-size: 14px; cursor: pointer; }

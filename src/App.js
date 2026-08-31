@@ -5,10 +5,20 @@ import studentManagement from "./studentmanagement.png";
 import jobfinder from "./jobfinder.png";
 import joinaCity from "./joina-city.png";
 import exclusiveFashionWear from "./exclusive-fashion-wear.png";
+import rateLimiter from "./rate-limiter.png";
+import euniqueCosmetics from "./eunique-cosmetics.png";
 import { isSupabaseConfigured } from "./lib/supabase";
 
 
 const projects = [
+  {
+    number: "06",
+    title: "Rate Limiter",
+    description: "An interactive API rate limiter dashboard that tracks request usage, configured limits, and real-time request status.",
+    image: rateLimiter,
+    stack: ["Next.js", "TypeScript", "API"],
+    demoUrl: "https://rate-limiter-assignment-git-master-quad-coders1.vercel.app/",
+  },
   {
     number: "01",
     title: "Joina City Mall Portal",
@@ -53,11 +63,19 @@ const projects = [
     stack: ["React", "JavaScript", "CSS"],
     demoUrl: "https://job-finder-wqp9.vercel.app/",
   },
+  {
+    number: "07",
+    title: "Eunique Cosmetics",
+    description: "A refined cosmetics e-commerce storefront for exploring beauty essentials, gifts, and curated collections.",
+    image: euniqueCosmetics,
+    stack: ["React", "JavaScript", "CSS"],
+    demoUrl: "https://e-comerce-cosmetics.vercel.app/",
+  },
 ];
 
 const placeholders = [
-  { number: "06" },
-  { number: "07" },
+  { number: "08" },
+  { number: "09" },
 ];
 
 const skillGroups = [
@@ -173,7 +191,7 @@ function App() {
             <div className="laptop-base"><span /></div>
           </div>
           <div className="section-wrap hero-layout">
-            <div className="hero-topline"><p className="eyebrow">Independent developer / 2026</p><p>Harare, Zimbabwe</p></div>
+            <div className="hero-topline"><p className="eyebrow">Software Engineer</p><p>Harare, Zimbabwe</p></div>
             <div className="hero-copy">
               <p className="hero-kicker">Sean Biningu</p>
               <h1>I build digital<br /><em>experiences with</em><br />lasting clarity.</h1>

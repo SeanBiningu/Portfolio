@@ -2,11 +2,33 @@ import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import eventplanner from "./eventplanner.png"
 import studentmanagement from "./studentmanagement.png"
 import joinaCity from "./joina-city.png"
+import rateLimiter from "./rate-limiter.png"
 
 function Projects() {
 
 
   const projects = [
+
+    {
+      title: "Rate Limiter",
+
+      description:
+        "An interactive API rate limiter dashboard that tracks request usage, configured limits, and real-time request status.",
+
+      image:
+        rateLimiter,
+
+      technologies:[
+        "Next.js",
+        "TypeScript",
+        "API"
+      ],
+
+      github:"#",
+
+      demo:"https://rate-limiter-assignment-git-master-quad-coders1.vercel.app/"
+
+    },
 
     {
       title: "Joina City Mall Portal",
@@ -383,6 +405,8 @@ function Projects() {
                     <a
 
                       href={project.demo}
+                      target="_blank"
+                      rel="noreferrer"
 
                       className="
                         flex
