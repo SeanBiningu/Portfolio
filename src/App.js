@@ -89,6 +89,7 @@ const emailHref = `mailto:${emailAddress}?subject=${encodeURIComponent("Portfoli
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isNavVisible, setIsNavVisible] = useState(true);
   const closeMenu = () => setMenuOpen(false);
 
   const [startConvOpen, setStartConvOpen] = useState(false);
@@ -133,6 +134,24 @@ function App() {
     return () => document.removeEventListener("keydown", handleEscape);
   }, []);
 
+  useEffect(() => {
+    let scrollTimeout;
+
+    function handleScroll() {
+      setIsNavVisible(true);
+      window.clearTimeout(scrollTimeout);
+      scrollTimeout = window.setTimeout(() => {
+        if (!menuOpen) setIsNavVisible(false);
+      }, 800);
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.clearTimeout(scrollTimeout);
+    };
+  }, [menuOpen]);
+
   const students = [
     { name: "Amara Ncube", course: "Software Engineering", grade: "A" },
     { name: "Tawanda Moyo", course: "Data Structures", grade: "B+" },
@@ -156,7 +175,7 @@ function App() {
 
   return (
     <div className="site-shell">
-      <header className="site-header">
+      <header className={`site-header ${isNavVisible || menuOpen ? "site-header--visible" : "site-header--hidden"}`}>
         <a className="wordmark" href="#top" onClick={closeMenu}>SB<span>.</span></a>
         <button className="menu-toggle" type="button" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? "Close" : "Menu"}
