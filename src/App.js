@@ -90,6 +90,8 @@ const emailHref = `mailto:${emailAddress}?subject=${encodeURIComponent("Portfoli
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(true);
+  const [isHoveringNav, setIsHoveringNav] = useState(false);
+  const [visibleProjectsCount, setVisibleProjectsCount] = useState(6);
   const closeMenu = () => setMenuOpen(false);
 
   const [startConvOpen, setStartConvOpen] = useState(false);
@@ -175,7 +177,11 @@ function App() {
 
   return (
     <div className="site-shell">
-      <header className={`site-header ${isNavVisible || menuOpen ? "site-header--visible" : "site-header--hidden"}`}>
+      <header 
+        className={`site-header ${isNavVisible || menuOpen || isHoveringNav ? "site-header--visible" : "site-header--hidden"}`}
+        onMouseEnter={() => setIsHoveringNav(true)}
+        onMouseLeave={() => setIsHoveringNav(false)}
+      >
         <a className="wordmark" href="#top" onClick={closeMenu}>SB<span>.</span></a>
         <button className="menu-toggle" type="button" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? "Close" : "Menu"}
@@ -270,7 +276,7 @@ function App() {
           <div className="section-wrap split-grid">
             <p className="eyebrow">01 / About</p>
             <div>
-              <h2>I turn an idea into a useful, polished digital experience.</h2>
+              <h2>I turn ideas into useful, polished digital experiences.</h2>
               <p className="body-copy">My work combines a practical engineering mindset with care for the people using the product. I enjoy making interfaces that are easy to understand and systems that are built to grow.</p>
               <div className="contact-dropdown-wrap" ref={startConvRef}>
                 <button
@@ -366,7 +372,7 @@ function App() {
             <p>Small details, clear outcomes, and a focus on the people at the other end of the screen.</p>
           </div>
           <div className="project-list">
-            {projects.map((project) => (
+            {projects.slice(0, visibleProjectsCount).map((project) => (
               <article className="project-card" key={project.title}>
                 {project.demoCredentials ? (
                   <button className="project-image project-image-link project-image-button" type="button" onClick={() => setDemoAccess(project)} aria-label={`View ${project.title} demo account`}>
@@ -403,7 +409,7 @@ function App() {
                 </div>
               </article>
             ))}
-            {placeholders.map((slot) => (
+            {(visibleProjectsCount - projects.length > 0 ? placeholders.slice(0, visibleProjectsCount - projects.length) : []).map((slot) => (
               <article className="project-card project-card-placeholder" key={slot.number} aria-label="Upcoming project">
                 <div className="project-image project-image-placeholder">
                   <span className="placeholder-icon">+</span>
@@ -419,6 +425,20 @@ function App() {
               </article>
             ))}
           </div>
+          {visibleProjectsCount < projects.length + placeholders.length && (
+            <div className="projects-show-more">
+              <div className="show-all-btn-wrap">
+                <button 
+                  type="button" 
+                  className="button button-light show-all-btn" 
+                  onClick={() => setVisibleProjectsCount(count => count + 3)}
+                >
+                  Show more <FaArrowDown />
+                </button>
+                <div className="show-more-popup">Click here to view more projects</div>
+              </div>
+            </div>
+          )}
         </section>
 
         {demoAccess && (
