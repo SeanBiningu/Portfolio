@@ -25,7 +25,7 @@ function Navbar() {
       w-full
       z-50
       px-6
-      pt-4
+      pt-2
     ">
 
       <nav className="
@@ -38,7 +38,7 @@ function Navbar() {
         rounded-2xl
         shadow-lg
         px-6
-        py-4
+        py-2
         flex
         justify-between
         items-center
@@ -50,7 +50,7 @@ function Navbar() {
         <Link to="/">
 
           <h1 className="
-            text-3xl
+            text-2xl
             font-extrabold
             bg-gradient-to-r
             from-blue-500

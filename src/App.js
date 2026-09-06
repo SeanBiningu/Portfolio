@@ -143,7 +143,11 @@ function App() {
       setIsNavVisible(true);
       window.clearTimeout(scrollTimeout);
       scrollTimeout = window.setTimeout(() => {
-        if (!menuOpen) setIsNavVisible(false);
+        const hero = document.querySelector('.hero');
+        const heroHeight = hero ? hero.offsetHeight : window.innerHeight;
+        if (!menuOpen && window.scrollY > heroHeight - 80) {
+          setIsNavVisible(false);
+        }
       }, 800);
     }
 
