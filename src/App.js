@@ -62,6 +62,7 @@ const projects = [
     image: jobfinder,
     stack: ["React", "JavaScript", "CSS"],
     demoUrl: "https://job-finder-wqp9.vercel.app/",
+    unavailable: true,
   },
   {
     number: "07",
@@ -98,6 +99,7 @@ function App() {
   const [getInTouchOpen, setGetInTouchOpen] = useState(false);
   const [activeDemo, setActiveDemo] = useState(null);
   const [demoAccess, setDemoAccess] = useState(null);
+  const [unavailableProject, setUnavailableProject] = useState(null);
   const [studentQuery, setStudentQuery] = useState("");
   const [attendance, setAttendance] = useState({ Amara: "Present", Tawanda: "Present", Nyasha: "Absent" });
   const [events, setEvents] = useState([
@@ -130,6 +132,7 @@ function App() {
       if (event.key === "Escape") {
         setActiveDemo(null);
         setDemoAccess(null);
+        setUnavailableProject(null);
       }
     }
     document.addEventListener("keydown", handleEscape);
@@ -383,6 +386,11 @@ function App() {
                     <img src={project.image} alt={project.title} />
                     <span className="project-image-overlay">View demo account <FaExternalLinkAlt /></span>
                   </button>
+                ) : project.unavailable ? (
+                  <button className="project-image project-image-link project-image-button" type="button" onClick={() => setUnavailableProject(project)} aria-label={`${project.title} — currently unavailable`}>
+                    <img src={project.image} alt={project.title} />
+                    <span className="project-image-overlay project-image-overlay--unavailable">In progress <span className="unavailable-badge">🚧</span></span>
+                  </button>
                 ) : project.demoUrl ? (
                   <a className="project-image project-image-link" href={project.demoUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.title} live demo`}>
                     <img src={project.image} alt={project.title} />
@@ -403,6 +411,8 @@ function App() {
                   <div className="project-actions">
                     {project.demoCredentials ? (
                       <button type="button" className="project-link text-link project-demo-button" onClick={() => setDemoAccess(project)}>Live demo <FaPlay /></button>
+                    ) : project.unavailable ? (
+                      <button type="button" className="project-link text-link project-demo-button project-demo-button--unavailable" onClick={() => setUnavailableProject(project)}>Live demo <FaPlay /></button>
                     ) : project.demoUrl ? (
                       <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="project-link text-link">Live demo <FaPlay /></a>
                     ) : project.demo ? (
@@ -459,6 +469,29 @@ function App() {
                   <div><dt>Password</dt><dd>{demoAccess.demoCredentials.password}</dd></div>
                 </dl>
                 <a href={demoAccess.demoUrl} target="_blank" rel="noopener noreferrer" className="button button-light">Open live demo <FaExternalLinkAlt /></a>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {unavailableProject && (
+          <div className="demo-overlay" role="presentation" onMouseDown={() => setUnavailableProject(null)}>
+            <section className="demo-modal demo-unavailable-modal" role="dialog" aria-modal="true" aria-labelledby="unavailable-title" onMouseDown={(event) => event.stopPropagation()}>
+              <header className="demo-modal-header">
+                <div><p className="eyebrow">Live demo</p><h2 id="unavailable-title">{unavailableProject.title}</h2></div>
+                <button type="button" className="demo-close" onClick={() => setUnavailableProject(null)} aria-label="Close notification"><FaTimes /></button>
+              </header>
+              <div className="demo-unavailable-content">
+                <div className="unavailable-icon" aria-hidden="true">🚧</div>
+                <h3>Apologies, you can't view the project at the moment.</h3>
+                <p>It is currently a work in progress. Click Back to return to the portfolio, and feel free to explore any of my other projects.</p>
+                <button
+                  type="button"
+                  className="button button-light"
+                  onClick={() => { setUnavailableProject(null); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                >
+                  ← Back to portfolio
+                </button>
               </div>
             </section>
           </div>
