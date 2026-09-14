@@ -62,7 +62,10 @@ const projects = [
     image: jobfinder,
     stack: ["React", "JavaScript", "CSS"],
     demoUrl: "https://job-finder-wqp9.vercel.app/",
-    unavailable: true,
+    demoCredentials: {
+      email: "sean@gmail.com",
+      password: "sean@123",
+    },
   },
   {
     number: "07",
