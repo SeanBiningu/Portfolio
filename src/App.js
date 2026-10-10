@@ -7,10 +7,19 @@ import joinaCity from "./joina-city.png";
 import exclusiveFashionWear from "./exclusive-fashion-wear.png";
 import rateLimiter from "./rate-limiter.png";
 import euniqueCosmetics from "./eunique-cosmetics.png";
+import pathway from "./pathway.png";
 import { isSupabaseConfigured } from "./lib/supabase";
 
 
 const projects = [
+  {
+    number: "08",
+    title: "Pathway",
+    description: "A medicine-access platform that helps people find nearby pharmacy stock, verify medicine authenticity, and arrange delivery.",
+    image: pathway,
+    stack: ["React", "JavaScript", "CSS"],
+    demoUrl: "https://healthy-peach.vercel.app/",
+  },
   {
     number: "06",
     title: "Rate Limiter",
